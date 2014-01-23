@@ -1,0 +1,6 @@
+# Logfile created on 2014-01-22 23:01:49 -0800 by logger.rb/41954
+I, [2014-01-22T23:01:49.165310 #2274]  INFO -- : 0:  coderay (1.1.0) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/coderay-1.1.0.gemspec
+I, [2014-01-22T23:01:55.920888 #2274]  INFO -- : 0:  method_source (0.8.2) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/method_source-0.8.2.gemspec
+I, [2014-01-22T23:01:56.320360 #2274]  INFO -- : 0:  slop (3.4.7) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/slop-3.4.7.gemspec
+I, [2014-01-22T23:01:56.836178 #2274]  INFO -- : 0:  pry (0.9.12.4) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/pry-0.9.12.4.gemspec
+I, [2014-01-22T23:01:56.836656 #2274]  INFO -- : 0:  bundler (1.5.1) from /home/sean/.rvm/gems/ruby-2.0.0-p353@global/specifications/bundler-1.5.1.gemspec
