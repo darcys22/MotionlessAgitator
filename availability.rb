@@ -5,11 +5,12 @@ module Availability
 
         def initialize(csv_name = nil)
             csv_name ||= "availability.csv"
+            @employees = []
             read(csv_name)
         end
 
-        def read
-            csv = CSV.read(csv_fname)[1..-1]
+        def read(csv_name)
+            csv = CSV.read(csv_name)[1..-1]
             csv.each do |row|
                    ary = row[0].split
                    @employees << Employee::EmployeePreference.new.tap do |emp|

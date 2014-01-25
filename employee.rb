@@ -10,7 +10,7 @@ module Employee
         attr_accessor :name, :days, :hours
 
         def initialize
-            @days, @shifts = Hash[
+            @days = Hash[
                 Monday: Day.new,
                 Tuesday: Day.new,
                 Wednesday: Day.new,
