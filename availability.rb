@@ -4,12 +4,12 @@ module Availability
         attr_accessor :employees
 
         def initialize(csv_name)
-            @csv_name = csv_name
-            @employees = []
+            csv_name ||= "availability.csv"
+            read(csv_name)
         end
 
         def read
-            csv = CSV.read(@csv_fname)[1..-1]
+            csv = CSV.read(csv_fname)[1..-1]
             csv.each do |row|
                    ary = row[0].split
                    @employees << Employee::Employee.new.tap do |emp|
