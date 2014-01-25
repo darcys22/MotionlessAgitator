@@ -6,8 +6,8 @@ module Employee
         attr_accessor :date, :begin, :end
     end
 
-    class EmployeePreference
-        attr_accessor :name, :days, :hours
+    class EmployeeWeekBase
+        attr_accessor :name, :days
 
         def initialize
             @days = Hash[
@@ -20,6 +20,14 @@ module Employee
                 Sunday: Day.new ]
         end
     end
+    
+    class EmployeePreference < EmployeeWeekBase
+        attr_accessor :desired_hours
+    end
     #sean.days.has_key?(Date.today.strftime("%A").to_sym)
+    
+    class EmployeeRoster < EmployeeWeekBase
+        attr_accessor :total_hours 
+    end
 
 end
