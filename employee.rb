@@ -1,14 +1,13 @@
-require 'pry'
 require 'date'
 
 module Employee
 
     class Day
-        attr_accessor :day, :begin, :end
+        attr_accessor :date, :begin, :end
     end
 
-    class Employee
-        attr_accessor :name, :days, :shifts, :hours
+    class EmployeePreference
+        attr_accessor :name, :days, :hours
 
         def initialize
             @days, @shifts = Hash[
@@ -21,9 +20,6 @@ module Employee
                 Sunday: Day.new ]
         end
     end
-
-    #sean = Employee.new
     #sean.days.has_key?(Date.today.strftime("%A").to_sym)
-    #binding.pry
 
 end

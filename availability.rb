@@ -12,7 +12,7 @@ module Availability
             csv = CSV.read(@csv_fname)[1..-1]
             csv.each do |row|
                    ary = row[0].split
-                   employees << Employee::Employee.new.tap do |emp|
+                   @employees << Employee::Employee.new.tap do |emp|
                        emp.name = ary[0]
                        emp.days.each_with_index do |(key, day), index|
                            day.begin = ary[index*2 + 1]
