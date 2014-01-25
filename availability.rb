@@ -3,7 +3,7 @@ module Availability
         require 'csv'
         attr_accessor :employees
 
-        def initialize(csv_name)
+        def initialize(csv_name = nil)
             csv_name ||= "availability.csv"
             read(csv_name)
         end
