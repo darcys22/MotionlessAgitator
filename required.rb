@@ -12,9 +12,13 @@ module RequiredWork
 
         def read(csv_name)
             csv = CSV.foreach(csv_name, :headers => true) do |csv_obj|
-                puts csv_obj['date']
-                puts csv_obj['begin']
-                puts csv_obj['end']
+                @shifts << Employee::Day.new.tap do |shift|
+                    shift.date = csv_obj['date']
+                    shift.begin = csv_obj['begin']
+                    shift.end = csv_obj['end']
+                end
+            end
+            binding.pry
         end
 
         def day
