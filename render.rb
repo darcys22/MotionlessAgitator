@@ -56,3 +56,42 @@ end
         if no matches still then go through the list until someone can do it (not working same time) remove one of their shifts and give it to them (Then do the walk witht the next guy)
 
             make a process that takes a shift and walks through preferences
+
+#################
+            #
+For every employee (sorted by most available)
+    Average = Total Hours / Employees
+    if Average > Preferred
+        ideal = preferred
+        Total Hours -= Preferred
+    else
+        ideal = Average
+        Total Hours -= Average
+
+###################
+
+For Every Available
+    If (Total Hours + Shift.length) < ideal
+        return employee
+if employee_chosen = nil
+    damage control
+
+Damage control
+    Hash of key => employees and value of (Total Hours + Shift.length) - ideal
+    return hash.value_min
+
+actually this is probably better
+
+For Every Available
+    deviation = (Total Hours + shift.length) - ideal
+    return {Employee => deviation}
+return employee with min deviation
+
+######################
+
+Go through infractions and make a hash of the deviations from ideal
+    if deviations > 1 standard deviation or the deviations check = something to ensure against infinite loop
+        walk through the shifts of the largest deviation
+        walk shift through available employees (Sorted by deviation from ideal)
+        give to min devation guy
+
