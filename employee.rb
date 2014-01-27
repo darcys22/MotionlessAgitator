@@ -1,9 +1,37 @@
 require 'date'
 
-module Employee
+module MotionlessAgitator
 
     class Day
-        attr_accessor :date, :begin, :end
+        attr_accessor :begin, :finish
+        attr_reader :date, :minutes, :hours
+
+        def begin=(time)
+            @begin = time
+            @date = @begin.to_date
+        end
+
+        def finish=(time)
+            @end =time
+            calculate_minutes
+            calculate_hours
+        end
+
+        private
+
+            def calculate_minutes
+                unless @begin.nil? 
+                    @minutes = (@end - @begin)/60
+                else
+                    @minutes = 0
+                end
+            end
+
+            def calculate_hours
+                @hours = @minutes/60
+            end
+
+
     end
 
     class EmployeeWeekBase
@@ -19,6 +47,7 @@ module Employee
                 Saturday: Day.new,
                 Sunday: Day.new ]
         end
+        
     end
     
     class EmployeePreference < EmployeeWeekBase

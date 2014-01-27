@@ -12,3 +12,12 @@ I, [2014-01-25T15:30:18.225106 #2392]  INFO -- : 0:  method_source (0.8.2) from 
 I, [2014-01-25T15:30:18.225372 #2392]  INFO -- : 0:  slop (3.4.7) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/slop-3.4.7.gemspec
 I, [2014-01-25T15:30:18.225628 #2392]  INFO -- : 0:  pry (0.9.12.4) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/pry-0.9.12.4.gemspec
 I, [2014-01-25T15:30:18.225915 #2392]  INFO -- : 0:  bundler (1.5.1) from /home/sean/.rvm/gems/ruby-2.0.0-p353@global/specifications/bundler-1.5.1.gemspec
+I, [2014-01-25T16:22:01.531983 #2976]  INFO -- : 0:  columnize (0.3.6) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/columnize-0.3.6.gemspec
+I, [2014-01-25T16:22:01.534379 #2976]  INFO -- : 0:  debugger-linecache (1.2.0) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/debugger-linecache-1.2.0.gemspec
+I, [2014-01-25T16:22:01.534735 #2976]  INFO -- : 0:  byebug (2.5.0) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/byebug-2.5.0.gemspec
+I, [2014-01-25T16:22:03.160603 #2976]  INFO -- : 0:  chronic (0.10.2) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/chronic-0.10.2.gemspec
+I, [2014-01-25T16:22:03.161241 #2976]  INFO -- : 0:  coderay (1.1.0) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/coderay-1.1.0.gemspec
+I, [2014-01-25T16:22:03.161579 #2976]  INFO -- : 0:  method_source (0.8.2) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/method_source-0.8.2.gemspec
+I, [2014-01-25T16:22:03.161869 #2976]  INFO -- : 0:  slop (3.4.7) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/slop-3.4.7.gemspec
+I, [2014-01-25T16:22:03.162144 #2976]  INFO -- : 0:  pry (0.9.12.4) from /home/sean/.rvm/gems/ruby-2.0.0-p353/specifications/pry-0.9.12.4.gemspec
+I, [2014-01-25T16:22:03.162409 #2976]  INFO -- : 0:  bundler (1.5.1) from /home/sean/.rvm/gems/ruby-2.0.0-p353@global/specifications/bundler-1.5.1.gemspec

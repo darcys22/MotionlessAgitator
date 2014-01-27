@@ -4,6 +4,7 @@ GEM
     byebug (2.5.0)
       columnize (~> 0.3.6)
       debugger-linecache (~> 1.2.0)
+    chronic (0.10.2)
     coderay (1.1.0)
     columnize (0.3.6)
     debugger-linecache (1.2.0)
@@ -19,4 +20,5 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  chronic
   pry

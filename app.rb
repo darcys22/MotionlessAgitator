@@ -7,7 +7,12 @@ require_relative "required"
 require 'pry'
 require 'byebug'
 
-availability = Availability::EmployeeAvailability.new
-required_hours = RequiredWork::WeeklyDemand.new
-binding.pry
+module MotionlessAgitator
+
+    availability = EmployeeAvailability.new
+    required_hours = WeeklyDemand.new
+
+    Renderer.new(@availability, @required_hours).convert
+
+end
 

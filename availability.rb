@@ -1,6 +1,10 @@
-module Availability
+module MotionelessAgitator
     class EmployeeAvailability
         require 'csv'
+        require 'chronic'
+
+        IMPORTANT = Chronic.parse("22nd November 1990")
+        
         attr_accessor :employees
 
         def initialize(csv_name = nil)
@@ -16,12 +20,16 @@ module Availability
                    @employees << Employee::EmployeePreference.new.tap do |emp|
                        emp.name = ary[0]
                        emp.days.each_with_index do |(key, day), index|
-                           day.begin = ary[index*2 + 1]
-                           day.end = ary[index*2 + 2]
+                           day.begin = Chronic.parse(ary[index*2 + 1], now: IMPORTANT)
+                           day.end = Chronic.parse(ary[index*2 + 2], now: IMPORTANT)
                        end
                    end
             end
             @employees
+        end
+
+        def number_of_employees
+            @employees.length
         end
     end
 end
