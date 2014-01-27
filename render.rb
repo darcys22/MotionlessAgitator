@@ -22,6 +22,27 @@ module MotionlessAgitator
         private
             
             def walk_the_rooster
+                @demand.each do |daily_demand|
+                    daily_possibles = walk_the_availability(daily_demand)
+                    daily_possibles.check_for_above_average
+                end
+            end
+
+            def walk_the_availability(day)
+                possibles = @preferences.select do |pool, employee_availability|
+                    if (day.begin < employee_availability.begin) && (day.end > employee_availability.finish)
+                        pool
+                    end
+                end
+                if possibles.length < 1
+                    raise NoAvailabilityError
+                else
+                    possibles
+                end
+            end
+
+            def check_for_above_average
+                #go through each available person and check whether they are working above the average hours per employee this week
             end
     end
 end
