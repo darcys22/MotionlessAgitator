@@ -3,6 +3,7 @@
 require_relative "employee"
 require_relative "availability"
 require_relative "required"
+require_relative "render"
 
 require 'pry'
 require 'byebug'
@@ -12,7 +13,7 @@ module MotionlessAgitator
     availability = EmployeeAvailability.new
     required_hours = WeeklyDemand.new
 
-    Renderer.new(@availability, @required_hours).convert
+    Renderer.new(@availability, @required_hours).render!
 
 end
 
