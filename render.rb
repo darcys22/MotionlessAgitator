@@ -44,6 +44,21 @@ module MotionlessAgitator
             def check_for_above_average
                 #go through each available person and check whether they are working above the average hours per employee this week
             end
+
+
+            def ideal
+                week_hourly_demand = @demand.weekly_hours
+                @preferences.employees_by_least_available.inject(0) |ideal, (employee, count)| do
+                    average = week_hourly_demand / (@preference.number_of_employees - count)
+                    if average > employee.desired_hours
+                        ideal[employee] = employee.desired_hours
+                        week_hourly_demand -= employee.desired_hours
+                    else
+                        idea[employee] = average
+                        week_hourly_demand -= average
+                    end
+                end
+            end
     end
 end
 
@@ -59,14 +74,6 @@ end
 
 #################
             #
-For every employee (sorted by most available)
-    Average = Total Hours / Employees
-    if Average > Preferred
-        ideal = preferred
-        Total Hours -= Preferred
-    else
-        ideal = Average
-        Total Hours -= Average
 
 ###################
 

@@ -1,4 +1,4 @@
-module MotionelessAgitator
+module MotionlessAgitator
     class EmployeeAvailability
         require 'csv'
         require 'chronic'
@@ -30,6 +30,14 @@ module MotionelessAgitator
 
         def number_of_employees
             @employees.length
+        end
+
+        def employees_by_least_available
+            @employees.sort { |x, y| x.week_total <=> y.week_total }
+        end
+
+        def employees_by_most_available
+            @employees.sort { |x, y| y.week_total <=> x.week_total }
         end
     end
 end

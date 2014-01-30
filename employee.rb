@@ -46,8 +46,14 @@ module MotionlessAgitator
                 Friday: Day.new,
                 Saturday: Day.new,
                 Sunday: Day.new ]
+            
         end
         
+        def total_hours 
+           @days.inject(0) |sum, (key, value)| do
+               sum += value
+           end
+        end     
     end
     
     class EmployeePreference < EmployeeWeekBase
@@ -56,7 +62,6 @@ module MotionlessAgitator
     #sean.days.has_key?(Date.today.strftime("%A").to_sym)
     
     class EmployeeRoster < EmployeeWeekBase
-        attr_accessor :total_hours 
     end
 
 end
