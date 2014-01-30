@@ -9,7 +9,6 @@ module MotionlessAgitator
             csv_name ||= "shifts.csv"
             @shifts = []
             read(csv_name)
-
         end
 
         def read(csv_name)

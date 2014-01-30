@@ -2,9 +2,9 @@ module MotionlessAgitator
     
     class Renderer
 
-        def initialize(demand, preferences)
+        def initialize(preferences, demand)
             @demand, @preferences = demand, preferences
-            @process = false
+            @processed = false
             @schedule = Schedule.new 
         end
 
@@ -12,7 +12,7 @@ module MotionlessAgitator
             @demand.sort_desending_by_daily_hours!  # Need to define these messages
             @preferences.sort_ascending_by_availability
             walk_the_rooster
-            @process = true
+            @processed = true
         end
 
         private
@@ -20,18 +20,19 @@ module MotionlessAgitator
             def walk_the_rooster
                 ideal = calculate_ideal
                 @demand.each do |daily_demand|     
-                    daily_possibles = walk_the_availability(daily_demand)
-                    possibles_deviation = deviation(daily_possibles, ideal, day)
-                    @schedule.add(possibles_deviation.values.min_by(&:last))
-
+                    daily_possibles = seach_for_available(daily_demand)
+                    possibles_deviation = deviation(daily_possibles, ideal, daily_demand)
+                    @schedule.add(min_dev(possibles_deviation), daily_demand)
                 end
             end
 
-            def walk_the_availability(day)
-                possibles = @preferences.select do |pool, employee_availability|    
-                    if (day.begin < employee_availability.begin) && (day.end > employee_availability.finish)
-                        pool
-                    end
+            def min_dev_name(dev_list)
+                dev_list.values.min_by(&:last).key
+            end
+
+            def search_for_available(day)
+                possibles = @preferences.select do |employee_availability|    
+                    (day.begin < employee_availability.begin) && (day.end > employee_availability.finish)
                 end
                 if possibles.length < 1
                     raise NoAvailabilityError
@@ -42,13 +43,13 @@ module MotionlessAgitator
 
             def deviation(possibles, employee_ideals, day)
                 possibles.inject(0) |deviation, employee| do
-                    deviation[employee] = (@schedule.hours[:employee] + daily_demand.shift_length) - employee_ideals[:employee]
+                    deviation[employee] = (@schedule.hours(:employee) + day.shift_length) - employee_ideals[:employee]
                 end
             end
 
 
             def calculate_ideal
-                week_hourly_demand = @demand.weekly_hours
+                week_hourly_demand = @demand.week_hours
                 @preferences.employees_by_least_available.inject(0) |ideal, (employee, count)| do
                     average = week_hourly_demand / (@preference.number_of_employees - count)
                     if average > employee.desired_hours
