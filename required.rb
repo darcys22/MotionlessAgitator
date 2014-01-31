@@ -13,16 +13,17 @@ module MotionlessAgitator
 
         def read(csv_name)
             csv = CSV.foreach(csv_name, :headers => true) do |csv_obj|
-                @shifts << Employee::Day.new.tap do |shift|
+                @shifts << Day.new.tap do |shift|
                     date = Chronic.parse(csv_obj['date'])
-                    shift.begin = Chronic.parse(csv_obj['begin'], now: date)
-                    shift.end = Chronic.parse(csv_obj['end'], now: date)
+                    shift.start = Chronic.parse(csv_obj['begin'], now: date)
+                    shift.finish = Chronic.parse(csv_obj['end'], now: date)
                 end
             end
         end
         
         def week_begins
-            @shifts.min.to_date
+            first_shift = @shifts.min { |a, b| a.start <=> b.start }
+            first_shift.start.to_date
         end
 
         def shifts_by_day(date)
@@ -32,7 +33,7 @@ module MotionlessAgitator
         alias_method :shifts_by_date, :shifts_by_day
 
         def day_hours(date)
-            shifts_by_day(date).inject{|sum,x| sum + x.hours}
+            shifts_by_day(date).inject(0) {|sum,x| sum + x.hours}
         end
 
         alias_method :date_hours, :day_hours
@@ -41,6 +42,20 @@ module MotionlessAgitator
             @shifts.inject{|sum,x| sum + x.hours}
         end
 
+        def sort_by_busiest
+            daily_hours = days_by_hours
+            daily_hours.sort
+        end
+
+        private
+
+            def days_by_hours
+                days = Hash.new
+                7.times do | x|
+                    days[week_begins + x] = date_hours(week_begins + x)
+                end
+                days
+            end
     end
 end
 

@@ -9,8 +9,8 @@ module MotionlessAgitator
         end
 
         def render!
-            @demand.sort_desending_by_daily_hours!  # Need to define these messages
-            @preferences.sort_ascending_by_availability
+            @demand.sort_by_busiest
+            @preferences.sort_by_least_available
             walk_the_rooster
             @processed = true
         end
@@ -42,7 +42,7 @@ module MotionlessAgitator
             end
 
             def deviation(possibles, employee_ideals, day)
-                possibles.inject(0) |deviation, employee| do
+                possibles.inject(0) do |deviation, employee| 
                     deviation[employee] = (@schedule.hours(:employee) + day.shift_length) - employee_ideals[:employee]
                 end
             end
@@ -50,7 +50,7 @@ module MotionlessAgitator
 
             def calculate_ideal
                 week_hourly_demand = @demand.week_hours
-                @preferences.employees_by_least_available.inject(0) |ideal, (employee, count)| do
+                @preferences.employees_by_least_available.inject(0) do |ideal, (employee, count)|
                     average = week_hourly_demand / (@preference.number_of_employees - count)
                     if average > employee.desired_hours
                         ideal[employee] = employee.desired_hours

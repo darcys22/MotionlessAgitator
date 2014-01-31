@@ -17,11 +17,11 @@ module MotionlessAgitator
             csv = CSV.read(csv_name)[1..-1]
             csv.each do |row|
                    ary = row[0].split
-                   @employees << Employee::EmployeePreference.new.tap do |emp|
+                   @employees << EmployeePreference.new.tap do |emp|
                        emp.name = ary[0]
                        emp.days.each_with_index do |(key, day), index|
-                           day.begin = Chronic.parse(ary[index*2 + 1], now: IMPORTANT)
-                           day.end = Chronic.parse(ary[index*2 + 2], now: IMPORTANT)
+                           day.start = Chronic.parse(ary[index*2 + 1], now: IMPORTANT)
+                           day.finish = Chronic.parse(ary[index*2 + 2], now: IMPORTANT)
                        end
                    end
             end

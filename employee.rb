@@ -3,16 +3,16 @@ require 'date'
 module MotionlessAgitator
 
     class Day
-        attr_accessor :begin, :finish
+        attr_accessor :start, :finish
         attr_reader :date, :minutes, :hours
 
-        def begin=(time)
-            @begin = time
-            @date = @begin.to_date
+        def start=(time)
+            @start = time
+            @date = @start.to_date
         end
 
         def finish=(time)
-            @end =time
+            @finish =time
             calculate_minutes
             calculate_hours
         end
@@ -20,8 +20,8 @@ module MotionlessAgitator
         private
 
             def calculate_minutes
-                unless @begin.nil? 
-                    @minutes = (@end - @begin)/60
+                unless @start.nil? 
+                    @minutes = (@finish - @start)/60
                 else
                     @minutes = 0
                 end
@@ -50,7 +50,7 @@ module MotionlessAgitator
         end
         
         def total_hours 
-           @days.inject(0) |sum, (key, value)| do
+           @days.inject(0) do |sum, (key, value)|
                sum += value
            end
         end     
