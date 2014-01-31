@@ -14,18 +14,16 @@ module MotionlessAgitator
         end
 
         def read(csv_name)
-            csv = CSV.read(csv_name)[1..-1]
-            csv.each do |row|
-                   ary = row[0].split
-                   @employees << EmployeePreference.new.tap do |emp|
-                       emp.name = ary[0]
-                       emp.days.each_with_index do |(key, day), index|
-                           day.start = Chronic.parse(ary[index*2 + 1], now: IMPORTANT)
-                           day.finish = Chronic.parse(ary[index*2 + 2], now: IMPORTANT)
-                       end
-                   end
+            csv = CSV.foreach(csv_name, :headers => true) do |csv_obj|
+                @employees << EmployeePreference.new.tap do |emp|
+                    emp.name = csv_obj['name']
+                    emp.desired_hours = csv_obj['desired_hours'].to_i
+                    emp.days.each do |key, day|
+                        day.start = Chronic.parse(csv_obj["#{key.to_s}_start"])
+                        day.finish = Chronic.parse(csv_obj["#{key.to_s}_finish"])
+                    end
+                end
             end
-            @employees
         end
 
         def number_of_employees
@@ -33,11 +31,11 @@ module MotionlessAgitator
         end
 
         def employees_by_least_available
-            @employees.sort { |x, y| x.week_total <=> y.week_total }
+            @employees.sort { |x, y| x.total_hours <=> y.total_hours }
         end
 
         def employees_by_most_available
-            @employees.sort { |x, y| y.week_total <=> x.week_total }
+            @employees.sort { |x, y| y.total_hours <=> x.total_hours }
         end
     end
 end

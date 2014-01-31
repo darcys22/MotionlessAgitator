@@ -51,7 +51,7 @@ module MotionlessAgitator
         
         def total_hours 
            @days.inject(0) do |sum, (key, value)|
-               sum += value
+               sum += value.hours
            end
         end     
     end

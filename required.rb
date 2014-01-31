@@ -39,7 +39,7 @@ module MotionlessAgitator
         alias_method :date_hours, :day_hours
 
         def week_hours
-            @shifts.inject{|sum,x| sum + x.hours}
+            @shifts.inject(0) {|sum,x| sum + x.hours}
         end
 
         def sort_by_busiest

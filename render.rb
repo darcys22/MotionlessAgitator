@@ -10,7 +10,7 @@ module MotionlessAgitator
 
         def render!
             @demand.sort_by_busiest
-            @preferences.sort_by_least_available
+            @preferences.employees_by_least_available
             walk_the_rooster
             @processed = true
         end
@@ -50,8 +50,8 @@ module MotionlessAgitator
 
             def calculate_ideal
                 week_hourly_demand = @demand.week_hours
-                @preferences.employees_by_least_available.inject(0) do |ideal, (employee, count)|
-                    average = week_hourly_demand / (@preference.number_of_employees - count)
+                @preferences.employees_by_least_available.each_with_index.inject(0) do |ideal, (employee, count)|
+                    average = week_hourly_demand / (@preferences.number_of_employees - count)
                     if average > employee.desired_hours
                         ideal[employee] = employee.desired_hours
                         week_hourly_demand -= employee.desired_hours
