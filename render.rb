@@ -19,8 +19,8 @@ module MotionlessAgitator
             
             def walk_the_rooster
                 ideal = calculate_ideal
-                @demand.each do |daily_demand|     
-                    daily_possibles = seach_for_available(daily_demand)
+                @demand.shifts.each do |daily_demand|     
+                    daily_possibles = search_for_available(daily_demand)
                     possibles_deviation = deviation(daily_possibles, ideal, daily_demand)
                     @schedule.add(min_dev(possibles_deviation), daily_demand)
                 end
@@ -31,8 +31,9 @@ module MotionlessAgitator
             end
 
             def search_for_available(day)
-                possibles = @preferences.select do |employee_availability|    
-                    (day.begin < employee_availability.begin) && (day.end > employee_availability.finish)
+                byebug
+                possibles = @preferences.employees.select do |employee|
+                    employee.available?(day)
                 end
                 if possibles.length < 1
                     raise NoAvailabilityError
@@ -50,15 +51,16 @@ module MotionlessAgitator
 
             def calculate_ideal
                 week_hourly_demand = @demand.week_hours
-                @preferences.employees_by_least_available.each_with_index.inject(0) do |ideal, (employee, count)|
+                @preferences.employees_by_least_available.each_with_index.inject({}) do |ideal, (employee, count)|
                     average = week_hourly_demand / (@preferences.number_of_employees - count)
                     if average > employee.desired_hours
                         ideal[employee] = employee.desired_hours
                         week_hourly_demand -= employee.desired_hours
                     else
-                        idea[employee] = average
+                        ideal[employee] = average
                         week_hourly_demand -= average
                     end
+                    ideal
                 end
             end
     end
