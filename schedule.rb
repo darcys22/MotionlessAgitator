@@ -6,8 +6,8 @@ module MotionlessAgitator
             @schedule = {} 
         end
 
-        def add(name, day)
-            @schedule[name] = day
+        def add(employee, day)
+            @schedule[day] = employee.name
         end
 
         def return_by_day(day)
@@ -28,7 +28,7 @@ module MotionlessAgitator
 
         def by_employee(employee)
             @schedule.inject(0) do |hours, (key, value) |
-                hours += value.hours if key = employee.name
+                hours += key.hours if value = employee.name
             end
         end
     end
