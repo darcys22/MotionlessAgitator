@@ -26,25 +26,28 @@ module MotionlessAgitator
                 end
             end
 
-            def min_dev_name(dev_list)
-                dev_list.values.min_by(&:last).key
+            def min_dev(dev_list)
+                dev_list.min_by{|k,v|v}[0]
             end
 
             def search_for_available(day)
-                byebug
                 possibles = @preferences.employees.select do |employee|
                     employee.available?(day)
                 end
                 if possibles.length < 1
-                    raise NoAvailabilityError
+                    byebug
+                    possibles = @preferences.employees.select do |employee|
+                        employee.available?(day)
+                    end
                 else
                     possibles
                 end
             end
 
             def deviation(possibles, employee_ideals, day)
-                possibles.inject(0) do |deviation, employee| 
-                    deviation[employee] = (@schedule.hours(:employee) + day.shift_length) - employee_ideals[:employee]
+                possibles.inject({}) do |deviation, employee| 
+                    deviation[employee] = (@schedule.by_employee(employee) + day.hours) - employee_ideals[employee]
+                    deviation
                 end
             end
 

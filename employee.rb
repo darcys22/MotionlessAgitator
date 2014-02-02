@@ -60,14 +60,14 @@ module MotionlessAgitator
         attr_accessor :desired_hours
 
         def available?(day)
-            (time_on_date(day.start) < self.available_start(day)) && (time_on_date(day.finish) > self.available_finish(day))
+            (time_on_date(day.start) >= self.available_start(day)) && (time_on_date(day.finish) <= self.available_finish(day))
         end 
 
         def available_start(date)
             time_on_date(day_from_date(date).start)
         end
 
-        def available_end(date)
+        def available_finish(date)
             time_on_date(day_from_date(date).finish)
         end
 
@@ -78,7 +78,7 @@ module MotionlessAgitator
             end
 
             def time_on_date(date) # Wow wtf
-                Time.at(date.hour * 60 * 60 + date.min * 60)
+                (date.hour * 60 * 60 + date.min * 60)
             end
     end
 end
