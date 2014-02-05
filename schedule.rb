@@ -7,7 +7,7 @@ module MotionlessAgitator
         end
 
         def add(shifts)
-            @schedule.merge(shifts)
+            @schedule.merge!(shifts)
         end
 
         def return_by_day(day)

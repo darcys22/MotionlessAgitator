@@ -32,6 +32,7 @@ module MotionlessAgitator
                 shifts.inject([]) do |availability, shift|
                     daily_possibles = search_for_available(shift)
                     daily_possibles.each { |employee| availability << [shift, employee.name]}            
+                    availability
                 end
             end
                     
@@ -44,7 +45,6 @@ module MotionlessAgitator
                     employee.available?(day)
                 end
                 if possibles.length < 1
-                    byebug
                     possibles = @preferences.employees.select do |employee|
                         employee.available?(day)
                     end

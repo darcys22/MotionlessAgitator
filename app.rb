@@ -5,6 +5,7 @@ require_relative "availability"
 require_relative "required"
 require_relative "render"
 require_relative "schedule"
+require_relative "dailyplanner"
 
 require 'pry'
 require 'byebug'
