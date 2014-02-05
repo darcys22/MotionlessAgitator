@@ -60,6 +60,7 @@ module MotionlessAgitator
         attr_accessor :desired_hours
 
         def available?(day)
+            binding.pry
             (time_on_date(day.start) >= self.available_start(day)) && (time_on_date(day.finish) <= self.available_finish(day))
         end 
 

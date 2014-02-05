@@ -16,7 +16,7 @@ module MotionlessAgitator
                 @shifts << Day.new.tap do |shift|
                     date = Chronic.parse(csv_obj['date'])
                     shift.start = Chronic.parse(csv_obj['begin'], now: date)
-                    shift.finish = Chronic.parse(csv_obj['end'], now: date)
+                    shift.finish = Chronic.parse(csv_obj['end'], now: date, ambiguous_time_range: (shift.start.hour + 4))
                 end
             end
         end
