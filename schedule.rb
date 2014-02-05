@@ -6,8 +6,8 @@ module MotionlessAgitator
             @schedule = {} 
         end
 
-        def add(employee, day)
-            @schedule[day] = employee.name
+        def add(shifts)
+            @schedule.merge(shifts)
         end
 
         def return_by_day(day)

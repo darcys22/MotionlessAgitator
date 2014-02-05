@@ -23,31 +23,15 @@ module MotionlessAgitator
                 day_order.each do |day|
                     shifts_for_day = @demand.shift_by_day(day)
                     list = all_availability_for_shifts(shifts_for_day)
-                    find_unique_available(list)
+                    daily_roster = DailyPlanner.new(list).plan!
+                    @schedule.add(daily_roster)
                 end
             end
-
-            def find_unique_available(days_shifts_available)
-                employees_on_day = count_employee_occurance(days_shifts_available)
-                employees_on_day.each do |employee, shifts|
-                    if shifts.length = 1
-                        @schedule.add(employee, shift)
-                        employees_on_day
-
-
-
-                #@demand.shifts.each do |daily_demand|     
-                    #daily_possibles = search_for_available(daily_demand)
-                    #possibles_deviation = deviation(daily_possibles, ideal, daily_demand)
-                    #puts "#{min_dev(possibles_deviation).name} => #{daily_demand.start}, #{daily_demand.finish}"
-                    #@schedule.add(min_dev(possibles_deviation), daily_demand)
-                #end
-            #end
 
             def all_availability_for_shifts(shifts)
                 shifts.inject([]) do |availability, shift|
                     daily_possibles = search_for_available(shift)
-                    daily_possibles.each { |employee| availability << {shift: employee.name}}            
+                    daily_possibles.each { |employee| availability << [shift, employee.name]}            
                 end
             end
                     
@@ -55,7 +39,7 @@ module MotionlessAgitator
                 dev_list.min_by{|k,v|v}[0]
             end
 
-            def search_for_available(day)
+            def search_for_available(day)  #Move into the @preferences.... This method is gross
                 possibles = @preferences.employees.select do |employee|
                     employee.available?(day)
                 end
