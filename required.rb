@@ -43,15 +43,15 @@ module MotionlessAgitator
         end
 
         def sort_by_busiest
-            daily_hours = days_by_hours
-            daily_hours.sort
+            daily_hours = Hash[days_by_hours.sort_by {|day, hours| hours}]
+            daily_hours.keys.reverse
         end
 
         private
 
             def days_by_hours
                 days = Hash.new
-                7.times do | x|
+                7.times do |x|
                     days[week_begins + x] = date_hours(week_begins + x)
                 end
                 days

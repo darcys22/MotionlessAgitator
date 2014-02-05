@@ -21,7 +21,7 @@ module MotionlessAgitator
                 ideal = calculate_ideal
                 day_order = @demand.sort_by_busiest
                 day_order.each do |day|
-                    shifts_for_day = @demand.shift_by_day(day)
+                    shifts_for_day = @demand.shifts_by_day(day)
                     list = all_availability_for_shifts(shifts_for_day)
                     daily_roster = DailyPlanner.new(list).plan!
                     @schedule.add(daily_roster)
