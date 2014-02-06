@@ -22,7 +22,8 @@ module MotionlessAgitator
         end
         
         def week_begins
-            first_shift = @shifts.min { |a, b| a.start <=> b.start }
+            first_shift = @shifts.map(&:start).min
+            #first_shift = @shifts.max { |a, b| a.start.to_date <=> b.start.to_date }
             first_shift.start.to_date
         end
 
