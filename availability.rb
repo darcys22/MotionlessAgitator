@@ -20,7 +20,7 @@ module MotionlessAgitator
                     emp.desired_hours = csv_obj['desired_hours'].to_i
                     emp.days.each do |key, day|
                         day.start = Chronic.parse(csv_obj["#{key.to_s}_start"])
-                        day.finish = Chronic.parse(csv_obj["#{key.to_s}_finish"])
+                        day.finish = Chronic.parse(csv_obj["#{key.to_s}_finish"], ambiguous_time_range: (day.start.hour + 4))
                     end
                 end
             end
