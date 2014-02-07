@@ -45,9 +45,9 @@ module MotionlessAgitator
                 possibles = @preferences.employees.select do |employee|
                     employee.available?(day)
                 end
-                if possibles.length < 1
-                    nil
-                end
+                #if possibles.length < 1
+                    #nil
+                #end
             end
 
             def deviation(possibles, employee_ideals, day)
