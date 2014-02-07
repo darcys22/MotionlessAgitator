@@ -46,11 +46,7 @@ module MotionlessAgitator
                     employee.available?(day)
                 end
                 if possibles.length < 1
-                    possibles = @preferences.employees.select do |employee|
-                        employee.available?(day)
-                    end
-                else
-                    possibles
+                    nil
                 end
             end
 

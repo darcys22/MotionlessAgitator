@@ -22,13 +22,12 @@ module MotionlessAgitator
         end
         
         def week_begins
-            first_shift = @shifts.map(&:start).min
-            #first_shift = @shifts.max { |a, b| a.start.to_date <=> b.start.to_date }
-            first_shift.start.to_date
+            @shifts.map(&:start).min
         end
 
         def shifts_by_day(date)
-            @shifts.select {|shift| shift.date == Chronic.parse(date, now: week_begins).to_date}
+            date = Chronic.parse(date, now: week_begins) unless date.kind_of? Time 
+            @shifts.select {|shift| shift.date == date.to_date}
         end
 
         alias_method :shifts_by_date, :shifts_by_day
@@ -53,7 +52,7 @@ module MotionlessAgitator
             def days_by_hours
                 days = Hash.new
                 7.times do |x|
-                    days[week_begins + x] = date_hours(week_begins + x)
+                    days[week_begins.to_date + x] = date_hours(week_begins.to_date + x)
                 end
                 days
             end
