@@ -14,6 +14,8 @@ module MotionlessAgitator
                 employee = find_least_available_employee(shift)
                 add_shift(shift, employee)
             end
+            if daily_options.length > 0
+                Observer.add_limited_availability(daily_options[0].start.to_date, daily_options)
             @daily_schedule
         end
 

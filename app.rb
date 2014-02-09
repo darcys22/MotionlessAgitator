@@ -6,6 +6,7 @@ require_relative "weeklydemand"
 require_relative "render"
 require_relative "schedule"
 require_relative "dailyplanner"
+require_relative "observer"
 
 require 'pry'
 require 'byebug'
