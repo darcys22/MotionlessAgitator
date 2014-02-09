@@ -32,7 +32,7 @@ module MotionlessAgitator
             def all_availability_for_shifts(shifts)
                 shifts.inject([]) do |availability, shift|
                     daily_possibles = search_for_available(shift)
-                    daily_possibles.each { |employee| availability << [shift, employee.name]}            
+                    daily_possibles.each { |employee| availability.push({:shift => shift, :name => employee.name})}            
                     availability
                 end
             end

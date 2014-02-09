@@ -16,6 +16,7 @@ module MotionlessAgitator
             end
             if daily_options.length > 0
                 Observer.add_limited_availability(daily_options[0].start.to_date, daily_options)
+            end
             @daily_schedule
         end
 
