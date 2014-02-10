@@ -32,7 +32,7 @@ module MotionlessAgitator
             def all_availability_for_shifts(shifts)
                 shifts.inject([]) do |availability, shift|
                     daily_possibles = search_for_available(shift)
-                    daily_possibles.each { |employee| availability.push({:shift => shift, :name => employee.name})}            
+                    daily_possibles.each { |employee| availability.push({:Shift => shift, :Employee => employee.name})}            
                     availability
                 end
             end
@@ -46,8 +46,9 @@ module MotionlessAgitator
                     employee.available?(day)
                 end
                 if possibles.length < 1
-                    Observer.no_availability(day)
+                    Observer.no_availability_for_shift(day)
                 end
+                possibles
             end
 
             def deviation(possibles, employee_ideals, day)

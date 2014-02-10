@@ -1,15 +1,14 @@
 module MotionlessAgitator
 
     class Observer
-
         class << self
 
-            def initiialize
-                @@no_avail = []
-                @@short_days = {}
-            end
+            attr_reader :no_avail, :short_days
 
-            def no_availabilty_for_shift(shift)
+            @@no_avail = []
+            @@short_days = {}
+
+            def no_availability_for_shift(shift)
                 @@no_avail << shift
             end
 
